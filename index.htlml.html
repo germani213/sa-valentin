@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Fio ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffd1dc, #ffe6eb);
+      font-family: 'Segoe UI', sans-serif;
+      color: #6b2c3e;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      padding: 35px 25px;
+      border-radius: 25px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .heart-main {
+      font-size: 3.2rem;
+      margin-bottom: 10px;
+      animation: floatMain 2s ease-in-out infinite;
+    }
+
+    @keyframes floatMain {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .love-btn {
+      margin-top: 22px;
+      padding: 14px 34px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      background: #ff8fa3;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .love-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+    }
+
+    .signature {
+      margin-top: 18px;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    /* Pregunta oculta */
+    .question {
+      margin-top: 18px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      filter: drop-shadow(0 0 0 rgba(255,143,163,0));
+      transition: all 0.6s ease;
+      display: none;
+    }
+
+    .question.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 10px rgba(255,143,163,0.6));
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff6b81;
+      animation: floatUp 3s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120px); opacity: 0; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1.05rem; }
+      .heart-main { font-size: 3rem; }
+      .question { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="heart-main">❤️</div>
+    <h1>Para Fio</h1>
+
+    <p>
+      Hola amor.<br>
+      Estuve dudando si pasarte esto o no, porque como te vas antes del 14 y no ibas a estar al lado mío, no sabía si mandártelo.<br><br>
+
+      Pero seguramente sí te lo mande, porque pensé que es una pavada si estás al lado mío o enfrente, porque siempre sé que vas a estar ahí cuando lo necesite.<br><br>
+
+      Siempre tenés una forma de estar, ya sea en mi mente o en mi corazón.
+      Igual, vas a tener que empezar a pagar alquiler, porque nunca te vas de mi cabeza.
+    </p>
+
+    <button class="love-btn" onclick="loveAction()">
+      ¿Aceptás? 💘
+    </button>
+
+    <!-- Pregunta con animación -->
+    <div id="question" class="question">
+      Amor, ¿querés ser mi San Valentín?<br>
+      Te amo ❤️
+    </div>
+
+    <div class="signature">
+      — Siempre con vos
+    </div>
+  </div>
+
+  <!-- Música (poné el archivo en la misma carpeta) -->
+  <audio id="music" loop>
+    <source src="alma-dinamita.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let playing = false;
+    let revealed = false;
+    const music = document.getElementById("music");
+    const question = document.getElementById("question");
+
+    function loveAction() {
+      spawnHearts();
+
+      if (!playing) {
+        music.play();
+        playing = true;
+      }
+
+      if (!revealed) {
+        question.classList.add("show");
+        revealed = true;
+      }
+    }
+
+    function spawnHearts() {
+      for (let i = 0; i < 14; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "70%";
+        heart.style.fontSize = (Math.random() * 20 + 16) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
